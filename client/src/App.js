@@ -4,6 +4,7 @@ import  { blobToBase64 } from './Utils'
 
 export default function App() {
   const Image = useRef('');
+  // -----------------------------Type 1------------------------------------------------
   const downloadTy1API = async () => {
     try {
       const filePath = `https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg`;
@@ -38,7 +39,9 @@ export default function App() {
     }
 
   }
+//-------------------------------End Type 2---------------------------------------------
 
+//-------------------------------Type 2-------------------------------------------------
   const downloadTy2API = async () => {
     try {
       const filePath = `http://localhost:5000/type-2`;
@@ -66,6 +69,7 @@ export default function App() {
     window.URL.revokeObjectURL(url);
     link.remove();
   }
+//--------------------------------End Type 2--------------------------------------------
 
   return (
     <div>
