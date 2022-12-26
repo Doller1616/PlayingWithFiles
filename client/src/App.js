@@ -7,9 +7,9 @@ export default function App() {
   // -----------------------------Type 1------------------------------------------------
   const downloadTy1API = async () => {
     try {
-      const filePath = `https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg`;
+      // const filePath = `https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg`;
       // or
-      // const filePath = `http://localhost:5000/type-1`;
+      const filePath = `http://localhost:5000/type-1`;
       const response = await axios.get(filePath, { responseType: 'blob' });
       return response.data;
     } catch (e) {
