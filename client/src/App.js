@@ -1,15 +1,18 @@
 import React, { useRef } from 'react'
 import axios from 'axios'
 import  { blobToBase64 } from './Utils'
+import CarImg from "./pikachu.png";
 
 export default function App() {
   const Image = useRef('');
   // -----------------------------Type 1------------------------------------------------
   const downloadTy1API = async () => {
     try {
-      // const filePath = `https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg`;
+      // const filePath = `https://images.pexels.com/photos/1133957/pexels-photo-1133957.jpeg`; // Image Path/url
       // or
-      const filePath = `http://localhost:5000/type-1`;
+         const filePath = `http://localhost:5000/type-1`; // Simple Image File
+      // or
+      // const filePath = `http://localhost:5000/type-3`; // Excel File
       const response = await axios.get(filePath, { responseType: 'blob' });
       return response.data;
     } catch (e) {
@@ -71,6 +74,20 @@ export default function App() {
   }
 //--------------------------------End Type 2--------------------------------------------
 
+// File Uplaod -------------------------------------------------------------------------
+const addpicture = async (e) => {
+  const formData = new FormData();
+  formData.append('profiles', e?.target?.files[0] );
+  const res = await axios.post('http://localhost:5000/uploadFile', formData);
+  if(!res.data?.length) return;
+  const url = window.URL.createObjectURL(e?.target?.files[0]);
+  const img = document.querySelector('#uploadImg');
+  img.src = url
+
+   }
+// ------------------------------------------------------------------------------------
+
+
   return (
     <div>
       <div style={{ display: 'flex', gap:'5px' }}>
@@ -86,6 +103,14 @@ export default function App() {
           <br/>
           <button onClick={downloadTy2}> Download type-2</button>
         </div>
+
+          <label>
+            <img id="uploadImg" src={CarImg} height="90" width="100" 
+            style={{borderRadius: "5px", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}} alt="" />
+            <input type="file"  style={{height: '0px', 'width': '0px'}} onChange={addpicture} /> 
+            <div>Upload Image</div>
+        </label>
+
       </div>
       <br />
       <hr />
