@@ -5,8 +5,10 @@ const PORT = 5000;
 
 
 Server.post('/uploadFile',uploadFile?.array('profiles', 4),(req, res)=> {
-  const urls = req.files.map((obj)=> `http://localhost:${PORT}/${obj.filename}`) 
-   res.send(urls)
+  if(req.files) {
+    const urls = req.files.map((obj)=> `http://localhost:${PORT}/${obj.filename}`) 
+    res.send({ ...req?.body, urls})
+  }
 })
 
 Server.get("/type-1", (req, res, next) => {
