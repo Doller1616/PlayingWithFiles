@@ -60,9 +60,9 @@ exports.uploadFile = (() => {
         filename: function (req, file, cb) {
             console.log("file", file);
             const [, ext] = file.mimetype.split('/');
-            const fileName = `${file.fieldname + new Date().getTime()}.${ext}`;
+            const fileName = `${file.originalname + new Date().getTime()}.${ext}`;
             cb(null, fileName);
         }
-    });
-    return multer({ storage: storage });
+    });                                            // 10GB
+    return multer({ storage: storage, limits: { fileSize: 10 * 1024 * 1024 * 1024 } });
 })();

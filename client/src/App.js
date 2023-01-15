@@ -77,13 +77,16 @@ export default function App() {
 // File Uplaod -------------------------------------------------------------------------
 const addpicture = async (e) => {
   const formData = new FormData();
-  formData.append('profiles', e?.target?.files[0] );
+  [...e?.target?.files]?.forEach(file => formData.append('profiles', file));
+  // formData.append('profiles', e?.target?.files[0]) // for single image
+  formData.append('name', 'Abhishek');
+  formData.append('surname', 'Bhardwaj' )
   const res = await axios.post('http://localhost:5000/uploadFile', formData);
-  if(!res.data?.length) return;
+  console.log(res)
+  if(!res.data?.urls?.length) return;
   const url = window.URL.createObjectURL(e?.target?.files[0]);
   const img = document.querySelector('#uploadImg');
   img.src = url
-
    }
 // ------------------------------------------------------------------------------------
 
@@ -107,7 +110,7 @@ const addpicture = async (e) => {
           <label>
             <img id="uploadImg" src={CarImg} height="90" width="100" 
             style={{borderRadius: "5px", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}} alt="" />
-            <input type="file"  style={{height: '0px', 'width': '0px'}} onChange={addpicture} /> 
+            <input type="file"  style={{height: '0px', 'width': '0px'}} onChange={addpicture} multiple /> 
             <div>Upload Image</div>
         </label>
 
